@@ -4,22 +4,19 @@
 #include <stdlib.h>
 
 int monete = 11;
+char diff;
+int probInizio;
 
-void facile();
-void medio();
-void difficile();
 
 int controlloInput();
 void inizioMacchina();
 void inizioGiocatore();
 
 
-
-
 int main()
 {
-	char diff;
-	
+	probInizio = rand()%100 + 1;
+
 	printf("Ciao! Seleziona una difficolta'\n");
 	printf("F = facile, M = medio, D = difficile\n");
 	scanf("%c", &diff);
@@ -27,15 +24,36 @@ int main()
 	switch(diff)
 	{
 		case 'f':
-			facile();
+			if(probInizio >= 80)
+			{
+				inizioGiocatore();
+			}
+			else
+			{
+				inizioMacchina();
+			}
 			break;
 		
 		case 'm':
-			medio();
+			if(probInizio >= 60)
+			{
+				inizioGiocatore();
+			}
+			else
+			{
+				inizioMacchina();
+			}
 			break;
-		
+			
 		case 'd':
-			difficile();
+			if(probInizio >= 30)
+			{
+				inizioGiocatore();
+			}
+			else
+			{
+				inizioMacchina();
+			}
 			break;
 			
 		default:
@@ -44,26 +62,11 @@ int main()
 	}
 }
 
-int controlloInput(int monetePlayer)
-{
-	
-}
-
-void facile()
+void inizioGiocatore()
 {
 	srand(time(NULL));
-	int probInizio;
+	int probSconf;
 	
-	probInizio = rand()%100 + 1;
+	probSconf = rand()%100 + 1;
 	
-	if(probInizio >= 80)
-	{
-		inizioGiocatore();
-	}
-	else
-	{
-		inizioMacchina();
-	}
 }
-
-
