@@ -30,7 +30,7 @@ void inizioGiocatoreC();
 void determinato();
 
 
-int main()  //TO DO: ricordarsi di scommentare le varie parti del codice
+int main()  
 {
 	probInizio = rand()%100 + 1;
 	probSconf = rand()%100 + 1;
