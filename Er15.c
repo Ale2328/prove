@@ -16,7 +16,7 @@ int monete = 11;
 int moneteRaccolteP, moneteRaccolteM;
 char diff;
 int probInizio, probSconf;
-int contaPlayer, contaMacchina; //implementazione del sistema di conta delle mosse.
+int contaPlayer, contaMacchina; 
 
 //dichiarazione delle funzioni di difficoltà
 void facile();
@@ -59,19 +59,20 @@ int main()
 	}
 }
 
-int controlloInput(int input)
+int controlloInput()
 {
 	do
 	{
 		printf("Ci sono %d monete. Quante monete vuoi prendere? \n", monete);
-		scanf("%d", &input);
+		scanf("%d", &moneteRaccolteP);
 		
-		if(input <= 0 && input >= 4)
+		if(moneteRaccolteP <= 0 && moneteRaccolteP >= 4)
 		{
 			printf("Per favore insersci da un numero da 1 a 3");	
-		}		
+		}
+				
 	}
-	while(input <= 0 && input >= 4);
+	while(moneteRaccolteP <= 0 && moneteRaccolteP >= 4);
 }
 
 void inizioGiocatoreC()
@@ -89,6 +90,15 @@ void inizioGiocatoreC()
 		
 		printf("La macchina ha preso %d monete. Ne rimangono %d\n", moneteRaccolteM, monete);
 	}
+	
+	if(contaPlayer > contaMacchina)
+	{
+		printf("\nLa macchina ha vinto");
+	}
+	else
+	{
+		printf("\nHai vinto");
+	}
 }
 
 void inizioMacchinaC()
@@ -103,6 +113,15 @@ void inizioMacchinaC()
 		controlloInput(moneteRaccolteP);
 		monete -= moneteRaccolteP;
 		contaPlayer += 1;
+	}
+	
+	if(contaPlayer > contaMacchina)
+	{
+		printf("\nLa macchina ha vinto");
+	}
+	else
+	{
+		printf("\nHai vinto");
 	}
 }
 
