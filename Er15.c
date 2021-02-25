@@ -2,7 +2,7 @@
 	Name: Il gioco del 15
 	Copyright: Nessuno
 	Author: Michele Pagano
-	Date: 16/02/21 10.31
+	Date: 25/02/21 08.35
 	Description: Un semplice gioco formato da 2 giocatori e 11 monete sul tavolo,
 	l'ultimo a prendere le monete perde.
 */
@@ -15,6 +15,7 @@
 int monete = 11;
 int moneteRaccolteP, moneteRaccolteM;
 char diff;
+char uscita;
 int probInizio, probSconf;
 int contaPlayer, contaMacchina; 
 
@@ -28,7 +29,7 @@ int controlloInput();
 void inizioMacchinaC();
 void inizioGiocatoreC();
 void determinato();
-
+void controlloMonete();
 
 int main()  
 {
@@ -59,6 +60,16 @@ int main()
 	}
 }
 
+void controlloMonete()
+{
+	if(monete < 0)
+	{
+		monete = 0;
+		printf("Le monete sono finite. Premi 'e' per terminare il gioco.");
+		scanf("%c", &uscita);
+	}
+}
+
 int controlloInput()
 {
 	do
@@ -66,18 +77,17 @@ int controlloInput()
 		printf("Ci sono %d monete. Quante monete vuoi prendere? \n", monete);
 		scanf("%d", &moneteRaccolteP);
 		
-		if(moneteRaccolteP <= 0 && moneteRaccolteP >= 4)
+		if(moneteRaccolteP <= 0 || moneteRaccolteP >= 4)
 		{
-			printf("Per favore insersci da un numero da 1 a 3");	
+			printf("Per favore insersci da un numero da 1 a 3\n");	
 		}
-				
 	}
-	while(moneteRaccolteP <= 0 && moneteRaccolteP >= 4);
+	while(moneteRaccolteP <= 0 || moneteRaccolteP >= 4);
 }
 
 void inizioGiocatoreC()
 {
-	while(monete > 0)
+	while(monete > 0 && uscita != 'e')
 	{	
 		controlloInput(moneteRaccolteP);
 		
@@ -89,6 +99,8 @@ void inizioGiocatoreC()
 		contaMacchina += 1;
 		
 		printf("La macchina ha preso %d monete. Ne rimangono %d\n", moneteRaccolteM, monete);
+		
+		controlloMonete();
 	}
 	
 	if(contaPlayer > contaMacchina)
@@ -103,7 +115,7 @@ void inizioGiocatoreC()
 
 void inizioMacchinaC()
 {	
-	while(monete > 0)
+	while(monete > 0 && uscita != 'e')
 	{
 		moneteRaccolteM = rand()%3 + 1;
 		monete -= moneteRaccolteM;
@@ -113,6 +125,8 @@ void inizioMacchinaC()
 		controlloInput(moneteRaccolteP);
 		monete -= moneteRaccolteP;
 		contaPlayer += 1;
+		
+		controlloMonete();	
 	}
 	
 	if(contaPlayer > contaMacchina)
@@ -133,18 +147,30 @@ void determinato()
 			moneteRaccolteM = 3;
 			monete -= moneteRaccolteM;
 			printf("La macchina ha preso %d monete. Ne rimangono %d\n", moneteRaccolteM, monete);
+			if(monete < 0)
+			{
+				monete = 0;
+			}
 			break;
 			
 		case 2:
 			moneteRaccolteM = 2;
 			monete -= moneteRaccolteM;
 			printf("La macchina ha preso %d monete. Ne rimangono %d\n", moneteRaccolteM, monete);
+			if(monete < 0)
+			{
+				monete = 0;
+			}
 			break;	
 			
 		case 3:
 			moneteRaccolteM = 1;
 			monete -= moneteRaccolteM;
 			printf("La macchina ha preso %d monete. Ne rimangono %d\n", moneteRaccolteM, monete);
+			if(monete < 0)
+			{
+				monete = 0;
+			}
 			break;	
 	}
 }
